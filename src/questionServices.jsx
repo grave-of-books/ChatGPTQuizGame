@@ -1,38 +1,63 @@
-// questionServices.jsx
+import { useContext } from "react";
+import { HistoryContext } from "./contextHelper";
 
-export function scoreKeeper(type) {
-    const pointValues = {
-        type1: {
-            points: 5,
-        },
-        type2: {
-            points: -5,
-        },
-        type3: {
-            points: 25,
-        },
-        // Define more types as needed
-    };
+export function useBirdMaster() {
+    const systemMessage = {
+        role: "system",
+        content: "Pretend you're a smart, sassy, & fabulous host of a British late-night talk show.",
+    }; // Example static system message
 
-    // Safely get points for the given type, default to 0 if type is not defined
-    const pointsToAdd = pointValues[type]?.points || 0;
-    return pointsToAdd;  // Return the points value
-}
+    const API_KEY = import.meta.env.VITE_API_KEY;
+    const { messages, setMessages, setCondition } = useContext(HistoryContext);
 
-export function generatePrompt(color) {
-    const questionTypes = {
-        red: {
-            question: "Ask me a multiple choice quiz question about US state Capitals. I will answer with either A, B, C, or D."
-        },
-        green: {
-            question: "Ask me a multiple choice quiz question about popular music. I will answer with either A, B, C, or D."
-        },
-        blue: {
-            question: "Ask me a multiple choice quiz question about US history. I will answer with either A, B, C, or D."
-        },
-        //more question types can be here
+    function handleAPIResponse(data) {
+        const res = data.choices[0].message.content;
+        setMessages((msgs) => [...msgs, { role: "assistant", content: res }]);
+        const { tag } = birdWhisperer(res);
+        setCondition(tag);
+        console.log("response set to " + tag);
+    }
 
-    };
-    const questionToAsk = questionTypes[color]?.color || "red";
-    return questionToAsk;
+    function birdWhisperer(message) {
+        let tag;
+        if (message.includes("INCORRECT")) {
+            tag = "INCORRECT";
+            console.log("tag set to " + tag);
+        } else if (message.includes("CORRECT")) {
+            tag = "CORRECT";
+            console.log("tag set to " + tag);
+        } else {
+            // Handle cases where no tag is found
+            tag = "UNKNOWN";
+            console.log("tag set to " + tag);
+        }
+        return { tag };
+    }
+
+    async function BirdMaster(userPrompt) {
+        try {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${API_KEY}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo",
+                    messages: [systemMessage, ...messages, { role: "user", content: userPrompt }],
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`API request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+            handleAPIResponse(data);
+        } catch (error) {
+            console.error("Failed to fetch data:", error);
+        }
+    }
+
+    return { BirdMaster };
 }

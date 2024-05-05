@@ -3,35 +3,8 @@ import { boxTypes } from './boxTypes';
 import { useNavigate } from 'react-router-dom';
 import { useRef,useEffect,useState } from "react";
 
-
-export function drawGrid(ctx, gridSize) {
-    console.log('Grid rendering');
-    ctx.strokeStyle = "#ccc"; // Color of the grid lines
-    ctx.fillStyle = "#fff"; // Font color for displaying coordinates
-    ctx.font = "12px Arial"; // Font for displaying coordinates
-    
-    for (let x = 0; x < ctx.canvas.width; x += gridSize) {
-        for (let y = 0; y < ctx.canvas.height; y += gridSize) {
-            // Draw grid cell
-            ctx.beginPath();
-            ctx.rect(x, y, gridSize, gridSize);
-            ctx.stroke();
-
-            // Calculate grid coordinates
-            const gridX = Math.floor(x / gridSize) + 1;
-            const gridY = Math.floor(y / gridSize) + 1;
-            
-            // Set font color to white
-            ctx.fillStyle = "#fff";
-            
-            // Display grid coordinates in each cell
-            ctx.fillText(`(${gridX},${gridY})`, x + 5, y + 15);
-        }
-    }
-}
-
 export function useBoxGenerator() {
-    const canvasRef = useRef(null);
+    let canvasRef = useRef(null);
     const gridSize = 50;
     const navigate = useNavigate();  // Initialize useNavigate
 
@@ -121,11 +94,10 @@ export function useBoxGenerator() {
         return () => clearInterval(intervalID);
     }, [canvasRef, gridSize, gridStates, navigate]); // Dependency array for useEffect
 
-    const clearBoxes = (color, condition) => {
+    const clearBoxes = (color) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
-        if (condition === "CORRECT") {
         Object.keys(gridStates).forEach(address => {
             const square = gridStates[address];
 
@@ -140,10 +112,6 @@ export function useBoxGenerator() {
                 }));
             }
         });
-    } else {
-        console.log('Player is incorrect, no boxes cleared');
-    }
 };
-
     return { canvasRef, clearBoxes };
 }
