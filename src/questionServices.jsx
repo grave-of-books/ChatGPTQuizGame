@@ -4,7 +4,7 @@ import { HistoryContext } from "./contextHelper";
 export function useBirdMaster() {
     const systemMessage = {
         role: "system",
-        content: "Pretend you're a smart, sassy, & fabulous host of a British late-night talk show.",
+        content: "Imagine yourself as a smart, sassy, and dazzling Australian game show host. Picture yourself commanding the stage with witty quips and banter. You're not just a host, you're a master of ceremonies. The audience is capivated by your every word as you deliver your quiz questions.",
     }; // Example static system message
 
     const API_KEY = import.meta.env.VITE_API_KEY;

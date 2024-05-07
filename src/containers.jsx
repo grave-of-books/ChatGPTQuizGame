@@ -40,7 +40,7 @@ LeftContainer.propTypes = {
     })).isRequired,
 };
 
-export function RightContainer({streak, score, setAnswerColor}) {
+export function RightContainer({streak, score, setAnswerColor, askedQuestions, setAskedQuestions }) {
     const { BirdMaster } = useBirdMaster();
 
     //Always display the current score
@@ -55,7 +55,7 @@ function CardClick(color) {
     setAnswerColor(color);
 
     //use logged color to select what prompt to sendS
-   let quizPrompt =getQuestionByColor(color);
+   let quizPrompt =getQuestionByColor(color, askedQuestions, setAskedQuestions);
 
    //send prompt to ChatGPT
    console.log("prompt sent to ChatGPT= "+quizPrompt);
@@ -73,9 +73,9 @@ function CardClick(color) {
           <div className= "score-counter">
           Current Score: {score}  {/* Display the current score dynamically */} 
           </div>
-          <img src={card1} className="card" alt="Clear Red Boxes" onClick={() => CardClick('red', 'Ask me a multiple choice question about capital cities. I will respond with A, B, C, or D.')} style={{ cursor: 'pointer' }} />
-          <img src={card2} className="card" alt="Clear Green Boxes" onClick={() => CardClick('green', 'Ask me a multiple choice question about music. I will respond with A, B, C, or D.')} style={{ cursor: 'pointer' }} />
-          <img src={card3} className="card" alt="Clear Blue Boxes" onClick={() => CardClick('blue', 'Ask me a multiple choice question about histoy. I will respond with A, B, C, or D.')} style={{ cursor: 'pointer' }} />
+          <img src={card1} className="card" alt="Clear Red Boxes" onClick={() => CardClick('red')} style={{ cursor: 'pointer' }} />
+          <img src={card2} className="card" alt="Clear Green Boxes" onClick={() => CardClick('green')} style={{ cursor: 'pointer' }} />
+          <img src={card3} className="card" alt="Clear Blue Boxes" onClick={() => CardClick('blue')} style={{ cursor: 'pointer' }} />
           </div>
       </div>
     )
@@ -84,7 +84,9 @@ function CardClick(color) {
 RightContainer.propTypes = {
     streak: PropTypes.number.isRequired,
     score: PropTypes.number.isRequired,
-    setAnswerColor: PropTypes.func.isRequired
+    setAnswerColor: PropTypes.func.isRequired,
+    setAskedQuestions: PropTypes.func.isRequired,
+    askedQuestions: PropTypes.arrayOf(PropTypes.number).isRequired
 };
 
 export function Canvas({ canvasRef }) {
@@ -138,14 +140,12 @@ Canvas.propTypes = {
 };
 
 export function CardContainer() {
-
-  //const { clearBoxes } = useBoxGenerator();  
   const { BirdMaster } = useBirdMaster();
 
 function ButtonClick(answer) {
     console.log("button was clicked");
     console.log("player picked option "+answer);
-    const modifiedAnswer = `The player selected ${answer}. Respond accordingly. Include 'CORRECT' in your response if the player is correct, otherwise 'INCORRECT'`;
+    const modifiedAnswer = `The player selected ${answer}. Respond accordingly. You must include 'CORRECT' in your response if the player is correct, otherwise include 'INCORRECT'`;
     BirdMaster(modifiedAnswer);
   }
 

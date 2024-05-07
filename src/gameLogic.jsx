@@ -88,7 +88,7 @@ export function useBoxGenerator() {
             console.log(`Attempt to occupy an already occupied square at ${randomAddress} was prevented.`);
         }
 
-        }, 2000); // Adjust the interval as necessary
+        }, 1500); // Adjust the interval as necessary
 
         // Cleanup function to clear the interval when the component unmounts
         return () => clearInterval(intervalID);

@@ -10,11 +10,12 @@ export const HistoryContextProvider = ({ children }) => {
     const [messages, setMessages] = useState([]);
     const [answerColor, setAnswerColor] = useState(" ");
     const [condition, setCondition] = useState(" ");
+    const [askedQuestions, setAskedQuestions] = useState([]);
 
     return (
         <HistoryContext.Provider value={{ 
-            score, streak, messages, answerColor, condition,
-            setScore, setStreak, setMessages, setAnswerColor, setCondition }}>
+            score, streak, messages, answerColor, condition, askedQuestions,
+            setScore, setStreak, setMessages, setAnswerColor, setCondition, setAskedQuestions }}>
             {children}
         </HistoryContext.Provider>
     );

@@ -6,8 +6,6 @@ import { LeftContainer, RightContainer, Canvas, CardContainer } from "./containe
 
 import "./App.css";
 
-//import { useConditionCheck } from "./counterHelpers";
-
 export default function App() {
   const { 
 
@@ -19,7 +17,9 @@ export default function App() {
     streak,
     setStreak,
     score,
-    setScore
+    setScore,
+    askedQuestions,
+    setAskedQuestions
     
 } = useContext(HistoryContext);
 
@@ -72,9 +72,9 @@ export default function App() {
   return (
           <>
             <div className="game-container">
-              <LeftContainer messages={messages} />
+              <LeftContainer messages={messages} />c 
               <Canvas canvasRef={canvasRef} />
-              <RightContainer streak={streak} score={score} setAnswerColor={setAnswerColor} />
+              <RightContainer streak={streak} score={score} setAnswerColor={setAnswerColor} askedQuestions={askedQuestions} setAskedQuestions={setAskedQuestions} />
             </div>
               <CardContainer answerColor={answerColor} condition={condition} setAnswerColor={setAnswerColor} />
           </>
