@@ -4,6 +4,24 @@
   text-align: center;
 }
 
+.titleContainer{
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  padding: 100px;
+  padding-left: 150px;
+  padding-right: 150px;
+  flex-grow: 1;
+  background-color: #333;
+}
+
+.titleImage {
+  width: 700px;
+  height: 450px;
+
+}
+
 #gameCanvas {
   width: 600px; /* Fixed width */
   height: 600px; /* Fixed height */
@@ -16,7 +34,7 @@
   flex-direction: row; /* Keeps .container-left and .container-right in a row */
   align-items: center; /* Vertically centers children within the game container */
   justify-content: flex-start; /* Aligns children to the start and lets you use margin on the canvas */
-  background-color: blue;
+  background-color: rgb(151, 79, 167);
   width: 1200px;
   height: 600px;
   margin: 0 auto; /* Center horizontally */
@@ -31,11 +49,9 @@
   align-items: center; /* Center content horizontally */
   height: 600px;
   flex-grow: 1; /* Allows flex items to grow if necessary */
-  background-color: rgba(226, 51, 183, 0.5); /* Different colors as needed */
 }
 
 .container-right {
-  background-color: rgba(19, 202, 98, 0.5);
   width: 300px; /* Explicit width */
 }
 
@@ -85,6 +101,13 @@
   border-color: #333;
 }
 
+.host {
+  width: 210px;
+  height: 210px;
+  border-color: black;
+  border-width: 2px;
+}
+
 .host-dialogue {
   display: flex;
   background-color: white;
@@ -102,7 +125,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start; /* Center the cards horizontally */
-  background-color: brown;
+  background-color: rgb(210, 101, 33);
   width: auto;
   height: 100px;
   padding-left: 10px; /* Add padding to separate the button from the cards */
@@ -124,18 +147,22 @@
 }
 
 .startButton {
-  position: absolute; /* Position the button absolutely */
-  top: 50%; /* Move the button to the vertical center of the container */
-  left: 10px; /* Position the button 10px from the left edge of the container */
-  transform: translateY(-50%); /* Adjust to vertically center the button */
-  width: 100px; /* Adjust the width to your preference */
-  height: 50px; /* Same as width to make it square */
-  background-color: orange;
+  background-color: rgb(1, 144, 210);
   border: none;
-  color: white; /* Text color */
+  width: 50%;
+  color: rgb(252, 211, 130); /* Text color */
   font-size: 16px; /* Font size */
   text-align: center;
   cursor: pointer;
+  margin: 50px;
+}
+
+.startButton:hover {
+  filter:contrast(50%);
+}
+
+.startButton:active {
+  filter:brightness(50%);
 }
 
 .answer-A, .answer-B, .answer-C, .answer-D {

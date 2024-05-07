@@ -5,6 +5,7 @@ import { useCallback, useEffect } from 'react';
 import card1 from './assets/card_1.png';
 import card2 from './assets/card_2.png';
 import card3 from './assets/card_3.png';
+import portrait from './assets/portrait.png'
 import { getQuestionByColor } from './rupaulServices';
 import { useBirdMaster } from './questionServices';
 
@@ -15,7 +16,9 @@ export function LeftContainer({messages}) {
     return (
         <div className="container-left">
             <div className="host-portrait">
-                <div className="portrait-content">Host Portrait Text Here</div>
+                <div className="portrait-content">
+                <img src={portrait} className="host" />
+                </div>
                 </div>
                 <div className="host-dialogue-box">
                   <div className="host-dialogue">

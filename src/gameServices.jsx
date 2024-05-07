@@ -1,6 +1,7 @@
 // GamePages.jsx
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import titleImage from './assets/title2.png'
 
 export function GameOver() {
     const navigate = useNavigate();
@@ -31,9 +32,10 @@ export function HomePage() {
 
     return (
         <div>
-            <h1>Welcome to Our Game!</h1>
-            <p>Get ready to experience the most exciting game ever.</p>
-            <button onClick={handleStartGame}>Start Game</button>
+        <div className="titleContainer">
+            <img src={titleImage} className="titleImage" />
+            <button className="startButton" onClick={handleStartGame}>Start Game</button>
+        </div>
         </div>
     );
 }

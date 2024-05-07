@@ -208,7 +208,7 @@ function questionDictionary(color, askedQuestions, setAskedQuestions) {
     setAskedQuestions([...askedQuestions, parseInt(randomQuestion.questionID)]);
 
     const questionPromptTemplate = {
-      example: `Ask me a multiple choice quiz question based on the following tax or business law concept: ${example}. Make sure to include four answer choices in your question, one choice that is true and three that are plausible but false. Don't use the definition directly in the question, but please provide it as the correct answer option. Be careful to ensure the question can be answered with the provided definition. I will answer in the form of Option A, Option B, Option C, or Option D.`,
+      example: `Ask me a multiple choice quiz question based on the following tax or business law concept: ${example}. Make sure to include four answer choices in your question, one choice that is true and three that are plausible but false. Don't use the definition directly in the question. You must provide the definition as one of the answer options, and this must be the only correct answer. I will answer in the form of Option A, Option B, Option C, or Option D.`,
       definition: `${definition}`,  // Corrected to use template literals for interpolation
 
     };
